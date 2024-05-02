@@ -4,8 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
 flask-restful = "*"
+django = "*"
+djangorestframework = "*"
+pillow = "*"
+pycryptodome = "*"
+numpy = "*"
+requests = "*"
 
 [dev-packages]
 
