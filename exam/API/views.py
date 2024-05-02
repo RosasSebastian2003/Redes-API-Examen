@@ -18,17 +18,16 @@ class DecryptImage(View):
             if encrypted_image_data is None:
                 return JsonResponse({'error': 'No encryptedImage field provided'}, status=400)
 
-            # Decrypt the image using the decryption key (assuming it's known)
+            # Llave de encriptacion, 32 bytes
             encryption_key = 'VVBI8lKHuS8O+kavwbKMMLAa2zlh2kho'
             decrypted_image_data = decrypt_image(encrypted_image_data, encryption_key)
 
-            # Convert the image to PNG format
             decrypted_image = Image.fromarray(np.frombuffer(decrypted_image_data, dtype=np.uint8)).convert('RGB')
 
             with default_storage.open('decrypted_image.png', 'wb') as f:
                 decrypted_image.save(f, 'PNG')
 
-            # Return the decrypted image as an HTTP response
+            # Arrojar a la imagen encryptada como una respuesta http
             response = HttpResponse(decrypted_image, content_type='image/png')
             response['Content-Disposition'] = 'attachment; filename="decrypted_image.png"'
             return response
@@ -36,11 +35,10 @@ class DecryptImage(View):
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
     
     def get(self, request):
-        # Open the decrypted image file
         with default_storage.open('decrypted_image.png', 'rb') as f:
             image_data = f.read()
 
-        # Return the decrypted image as an HTTP response
+        # Descargar la imagen a el folder de descargas
         response = HttpResponse(image_data, content_type='image/png')
         response['Content-Disposition'] = 'attachment; filename="decrypted_image.png"'
         return response
