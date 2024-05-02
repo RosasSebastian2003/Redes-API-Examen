@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Decrypt Image</title>
+</head>
+<body>
+    <form action="{% url 'decrypt_image' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="image-file">Seleccionar imagen:</label>
+        <input type="file" id="image-file" name="image-file" accept="image/png, image/jpeg, image/jpg">
+        <button type="submit">Encriptar y enviar</button>
+    </form>
+      
+    <img id="decrypted-image" src="" alt="Imagen desencriptada">
+      
+
+</body>
+</html>
